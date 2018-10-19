@@ -46,9 +46,10 @@ Calculate the FFT of the entire signal; then randomize the phases of each
 frequency bin by multiplying the frequency coefficient by a random phase:
 e^{2pi \phi}, where $\phi$ is distributed uniformly on the interval [0,b).  By
 default, b=0.1. The result is saved to outfile.''',
-        help='Randomize phases of Fourier coefficients.')
-    parser_randph.add_argument('infile', type=str)
-    parser_randph.add_argument('outfile', type=str)
+        help='Randomize phases of Fourier coefficients.',
+        epilog='INFILE and OUFILE are optional arguments, and default to STDIN and STDOUT respectively.')
+    parser_randph.add_argument('-i', '--infile', type=argparse.FileType('r'))
+    parser_randph.add_argument('-o', '--outfile', type=argparse.FileType('w'))
     parser_randph.add_argument('-b', type=float, default=0.1,
         help='phases disttibuted uniformly on [0,b)')
     parser_randph.set_defaults(func=randph)

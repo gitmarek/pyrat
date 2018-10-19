@@ -1,3 +1,4 @@
+import sys
 import numpy as np
 from scipy.fftpack import fft, ifft
 
@@ -6,8 +7,13 @@ from pyrat import logger
 
 def start(args):
 
-    logger.info(f'Reading file: {args.infile}')
-    a = np.fromfile(args.infile, dtype=np.float32)
+    if args.infile:
+        infile= args.infile
+    else:
+        infile = sys.stdin
+
+    logger.info(f'Reading file: {infile.name}')
+    a = np.fromfile(infile, dtype=np.float32)
     l = len(a)
     logger.info(f'No. of samples: {l}')
 
@@ -37,8 +43,12 @@ def start(args):
     logger.info('Max. imaginary residue: ' + str(np.amax(np.abs(np.imag(b)))))
     b = np.real(b)
 
-    logger.info(f'Writing the output file: {args.outfile}')
-    b.astype(np.float32).tofile(args.outfile)
+    if args.outfile:
+        outfile= args.outfile
+    else:
+        outfile = sys.stdout
+    logger.info(f'Writing data: {outfile.name}')
+    b.astype(np.float32).tofile(outfile)
 
     logger.info('Done.')
-    exit(0)
+    sys.exit(0)
