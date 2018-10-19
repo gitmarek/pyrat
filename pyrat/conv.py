@@ -1,4 +1,4 @@
-import logging
+import logging, sys
 
 import numpy as np
 from scipy import signal
@@ -10,10 +10,17 @@ from pyrat import logger
 def start(args):
     #logger.setLevel('INFO')
 
-    logger.info(f'Reading file: {args.infile}')
-    sig = np.fromfile(args.infile, dtype=np.float32)
+    if args.infile:
+        infile= args.infile
+    else:
+        infile = sys.stdin
 
-    logger.info(f'Reading file: {args.kerfile}')
+    logger.info(f'Reading file: {infile.name}')
+    sig = np.fromfile(infile, dtype=np.float32)
+
+
+    kerfile = args.kerfile
+    logger.info(f'Reading kernel file: {args.kerfile.name}')
     ker = np.fromfile(args.kerfile, dtype=np.float32)
 
     logger.info('Performing fft convolution')
@@ -22,7 +29,11 @@ def start(args):
     logger.info('Normalizing the result')
     result = (result - result.mean())/result.max()
 
-    logger.info(f'Writing data: {args.outfile}')
-    result.astype(np.float32).tofile(args.outfile)
+    if args.outfile:
+        outfile= args.outfile
+    else:
+        outfile = sys.stdout
+    logger.info(f'Writing data: {outfile.name}')
+    result.astype(np.float32).tofile(outfile)
 
-    exit(0)
+    sys.exit(0)

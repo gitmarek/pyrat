@@ -30,12 +30,13 @@ if __name__ == '__main__':
     # create the parser for the "conv" command
     parser_conv = subparsers.add_parser('conv',
         description='''Convolve input signal with kernel.
-Perform convolution of infile and kernel. Normalize the result
-and write it to outfile.''',
-        help='Convolve imput with a kernel.')
-    parser_conv.add_argument('infile', type=str)
-    parser_conv.add_argument('kerfile', type=str)
-    parser_conv.add_argument('outfile', type=str)
+Normalize the result and write it to outfile.''',
+        help='Convolve imput with a kernel.',
+        epilog='INFILE and OUFILE are optional arguments, and default to STDIN and STDOUT respectively.')
+    parser_conv.add_argument('-i', '--infile', type=argparse.FileType('r'))
+    parser_conv.add_argument('kerfile', type=argparse.FileType('r'),
+        help="Kernel to be convolved with INFILE")
+    parser_conv.add_argument('-o', '--outfile', type=argparse.FileType('w'))
     parser_conv.set_defaults(func=conv)
 
     # create the parser for the "randph" command
