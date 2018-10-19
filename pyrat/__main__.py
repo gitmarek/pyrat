@@ -19,7 +19,7 @@ if __name__ == '__main__':
 
     # create the top-level parser
     parser = argparse.ArgumentParser(prog=PROGNAME,
-        description='Raw tools for raw audio (32-bit float mono).',
+        description='Raw tools for raw audio.',
         epilog=PROGNAME+' <command> -h for more details.')
     parser.add_argument('--verbose', action='store_true')
     parser.add_argument('-v', '--version', action='store_true',
