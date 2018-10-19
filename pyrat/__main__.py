@@ -22,6 +22,8 @@ if __name__ == '__main__':
         description='Raw tools for raw audio.',
         epilog=PROGNAME+' <command> -h for more details.')
     parser.add_argument('--verbose', action='store_true')
+    parser.add_argument('--quiet', action='store_true',
+        help='takes precedence over \'verbose\'')
     parser.add_argument('-v', '--version', action='store_true',
         help='print version number and exit')
 
@@ -68,6 +70,8 @@ default, b=0.1. The result is saved to outfile.''',
         logger.setLevel('INFO')
     else:
         logger.setLevel('WARNING')
+    if args.quiet:
+        logger.setLevel(60) # above 'CRITICAL'
 
     args.func(args)
 
