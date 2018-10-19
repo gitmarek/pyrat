@@ -31,7 +31,7 @@ if __name__ == '__main__':
     parser_conv = subparsers.add_parser('conv',
         description='''Convolve input signal with kernel.
 Normalize the result and write it to outfile.''',
-        help='Convolve imput with a kernel.',
+        help='Convolve input with a kernel.',
         epilog='INFILE and OUFILE are optional arguments, and default to STDIN and STDOUT respectively.')
     parser_conv.add_argument('-i', '--infile', type=argparse.FileType('r'))
     parser_conv.add_argument('kerfile', type=argparse.FileType('r'),

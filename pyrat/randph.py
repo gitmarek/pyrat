@@ -15,6 +15,12 @@ def start(args):
     logger.info(f'Reading file: {infile.name}')
     a = np.fromfile(infile, dtype=np.float32)
     l = len(a)
+
+    if l == 0:
+        logger.error(f'The file {infile.name} does not contain any data')
+        logger.error(f'Abort')
+        sys.exit(1)
+
     logger.info(f'No. of samples: {l}')
 
     # For the sake of convenience, drop one sample if the length is even

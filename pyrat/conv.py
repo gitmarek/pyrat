@@ -5,10 +5,8 @@ from scipy import signal
 
 from pyrat import logger
 
-# TODO: check for empty files
 
 def start(args):
-    #logger.setLevel('INFO')
 
     if args.infile:
         infile= args.infile
@@ -18,10 +16,19 @@ def start(args):
     logger.info(f'Reading file: {infile.name}')
     sig = np.fromfile(infile, dtype=np.float32)
 
+    if len(sig) == 0:
+        logger.error(f'The file {infile.name} does not contain any data')
+        logger.error(f'Abort')
+        sys.exit(1)
 
     kerfile = args.kerfile
     logger.info(f'Reading kernel file: {args.kerfile.name}')
     ker = np.fromfile(args.kerfile, dtype=np.float32)
+
+    if len(ker) == 0:
+        logger.error(f'The file {kerfile.name} does not contain any data')
+        logger.error(f'Abort')
+        sys.exit(1)
 
     logger.info('Performing fft convolution')
     result = signal.fftconvolve(sig, ker, mode='full')

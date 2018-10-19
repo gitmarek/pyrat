@@ -37,7 +37,7 @@ optional arguments:
 
 Commands:
   {conv,randph}
-    conv         Convolve imput with a kernel.
+    conv         Convolve input with a kernel.
     randph       Randomize phases of Fourier coefficients.
 
 pyrat <command> -h for more details.
