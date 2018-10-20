@@ -52,9 +52,15 @@ def start(args):
         del mt_x, mt
 
         rt = (1-b)*at_i + b*mt_i
+        alpha, beta = (1-b)*(1-b), b*b
+        rt = rt / np.abs(rt) * np.sqrt(
+            alpha * np.power(np.abs(at_i),2) + 
+            beta  * np.power(np.abs(mt_i),2)) 
 
     r = ifft(rt)
 
+    # Normalize and remove offset
+    r = (r - r.mean())/np.abs(r).max()
 
     outfile= args.outfile
     logger.info(f'Writing data: {outfile.name}')
