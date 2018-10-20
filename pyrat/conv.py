@@ -30,7 +30,7 @@ def start(args):
     result = signal.fftconvolve(sig, ker, mode='full')
 
     logger.info('Normalizing the result')
-    result = (result - result.mean())/result.max()
+    result = (result - result.mean())/np.abs(result).max()
 
     outfile= args.outfile
     logger.info(f'Writing data: {outfile.name}')
