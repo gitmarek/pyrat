@@ -17,7 +17,6 @@ def start(args):
         logger.error(f'The file {infile.name} does not contain any data')
         logger.error(f'Abort')
         sys.exit(1)
-    logger.info(f'No. of samples: {al}')
     at_x = np.arange(al)
     at = fft(a)
 
@@ -30,10 +29,10 @@ def start(args):
         logger.error(f'The file {modfile.name} does not contain any data')
         logger.error(f'Abort')
         sys.exit(1)
-    logger.info(f'No. of samples: {ml}')
     mt_x = np.arange(ml)
     mt = fft(m)
 
+    logger.info('Interpolating spectra')
     b = args.b
     if b == 0:
         rt = at
@@ -57,9 +56,10 @@ def start(args):
             alpha * np.power(np.abs(at_i),2) + 
             beta  * np.power(np.abs(mt_i),2)) 
 
+    logger.info('Computing IFFT')
     r = ifft(rt)
 
-    # Normalize and remove offset
+    logger.info('Normalizing the output')
     r = (r - r.mean())/np.abs(r).max()
 
     outfile= args.outfile
