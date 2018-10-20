@@ -4,7 +4,7 @@ import pyrat
 from pyrat import PROGNAME, VERSION, logger
 
 
-# This returns a function to be called be a subparser below
+# This returns a function to be called by a subparser below
 # We assume in the tool's submodule there's a function called 'start(args)'
 # That takes over the execution of the program.
 def tool_(name):

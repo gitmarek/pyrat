@@ -1,5 +1,5 @@
 PROGNAME='pyrat'
-VERSION='0.1'
+VERSION='0.1.1'
 
 import logging
 LOGGING_FORMAT = '%(asctime)-15s ' + PROGNAME + ' (%(process)d): %(message)s'
