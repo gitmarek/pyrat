@@ -60,11 +60,10 @@ default, b=0.1. The result is saved to outfile.''',
 For b=0, there should be no change in the input singnal, wheread b=1 gives
 modfile.  The length of the outfile is: (1-b)*len(infile) + b*len(modfile).
 By default, b=0.5.''',
-        help='Spectral morphing.',
-        epilog='INFILE and OUFILE are optional arguments, and default to STDIN and STDOUT respectively.')
-    parser_morph.add_argument('-i', '--infile', type=argparse.FileType('r'))
-    parser_morph.add_argument('modfile', type=argparse.FileType('r'), help="Modulating signal")
-    parser_morph.add_argument('-o', '--outfile', type=argparse.FileType('w'))
+        help='Spectral morphing.')
+    parser_morph.add_argument('infile', type=argparse.FileType('r'))
+    parser_morph.add_argument('modfile', type=argparse.FileType('r'), help="modulating signal")
+    parser_morph.add_argument('outfile', type=argparse.FileType('w'))
     parser_morph.add_argument('-b', type=float, default=0.5,
         help='morphing coefficient (=0.5)')
     parser_morph.set_defaults(func=tool_('morph'))
