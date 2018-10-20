@@ -1,18 +1,17 @@
-import argparse, sys
+import argparse, importlib, sys 
 
 import pyrat
 from pyrat import PROGNAME, VERSION, logger
 
 
-# sub-command functions
-
-def conv(args):
-    pyrat.conv.start(args)
-
-
-def randph(args):
-    pyrat.randph.start(args)
-
+# This returns a function to be called be a subparser below
+# We assume in the tool's submodule there's a function called 'start(args)'
+# That takes over the execution of the program.
+def tool_(name):
+    def f(args):
+        submodule = importlib.import_module('pyrat.' + name)
+        getattr(submodule, 'start')(args)
+    return f
 
 
 if __name__ == '__main__':
@@ -39,7 +38,7 @@ Normalize the result and write it to outfile.''',
     parser_conv.add_argument('kerfile', type=argparse.FileType('r'),
         help="Kernel to be convolved with INFILE")
     parser_conv.add_argument('-o', '--outfile', type=argparse.FileType('w'))
-    parser_conv.set_defaults(func=conv)
+    parser_conv.set_defaults(func=tool_('conv'))
 
     # create the parser for the "randph" command
     parser_randph = subparsers.add_parser('randph',
@@ -54,7 +53,7 @@ default, b=0.1. The result is saved to outfile.''',
     parser_randph.add_argument('-o', '--outfile', type=argparse.FileType('w'))
     parser_randph.add_argument('-b', type=float, default=0.1,
         help='phases disttibuted uniformly on [0,b)')
-    parser_randph.set_defaults(func=randph)
+    parser_randph.set_defaults(func=tool_('randph'))
 
     if len(sys.argv) < 2:
         parser.print_usage()
