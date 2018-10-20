@@ -7,11 +7,7 @@ from pyrat import logger
 
 def start(args):
 
-    if args.infile:
-        infile= args.infile
-    else:
-        infile = sys.stdin
-
+    infile= args.infile
     logger.info(f'Reading file: {infile.name}')
     a = np.fromfile(infile, dtype=np.float32)
     l = len(a)
@@ -49,10 +45,7 @@ def start(args):
     logger.info('Max. imaginary residue: ' + str(np.amax(np.abs(np.imag(b)))))
     b = np.real(b)
 
-    if args.outfile:
-        outfile= args.outfile
-    else:
-        outfile = sys.stdout
+    outfile= args.outfile
     logger.info(f'Writing data: {outfile.name}')
     b.astype(np.float32).tofile(outfile)
 

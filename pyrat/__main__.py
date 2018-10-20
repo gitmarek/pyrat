@@ -32,12 +32,11 @@ if __name__ == '__main__':
     parser_conv = subparsers.add_parser('conv',
         description='''Convolve input signal with kernel.
 Normalize the result and write it to outfile.''',
-        help='Convolve input with a kernel.',
-        epilog='INFILE and OUFILE are optional arguments, and default to STDIN and STDOUT respectively.')
-    parser_conv.add_argument('-i', '--infile', type=argparse.FileType('r'))
+        help='Convolve input with a kernel.')
+    parser_conv.add_argument('infile', type=argparse.FileType('r'))
     parser_conv.add_argument('kerfile', type=argparse.FileType('r'),
-        help="Kernel to be convolved with INFILE")
-    parser_conv.add_argument('-o', '--outfile', type=argparse.FileType('w'))
+        help="kernel to be convolved with infile")
+    parser_conv.add_argument('outfile', type=argparse.FileType('w'))
     parser_conv.set_defaults(func=tool_('conv'))
 
     # create the parser for the "randph" command
@@ -47,10 +46,9 @@ Calculate the FFT of the entire signal; then randomize the phases of each
 frequency bin by multiplying the frequency coefficient by a random phase:
 e^{2pi \phi}, where $\phi$ is distributed uniformly on the interval [0,b).  By
 default, b=0.1. The result is saved to outfile.''',
-        help='Randomize phases of Fourier coefficients.',
-        epilog='INFILE and OUFILE are optional arguments, and default to STDIN and STDOUT respectively.')
-    parser_randph.add_argument('-i', '--infile', type=argparse.FileType('r'))
-    parser_randph.add_argument('-o', '--outfile', type=argparse.FileType('w'))
+        help='Randomize phases of Fourier coefficients.')
+    parser_randph.add_argument('infile', type=argparse.FileType('r'))
+    parser_randph.add_argument('outfile', type=argparse.FileType('w'))
     parser_randph.add_argument('-b', type=float, default=0.1,
         help='phases disttibuted uniformly on [0,b)')
     parser_randph.set_defaults(func=tool_('randph'))

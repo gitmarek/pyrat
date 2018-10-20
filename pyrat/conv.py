@@ -8,11 +8,7 @@ from pyrat import logger
 
 def start(args):
 
-    if args.infile:
-        infile= args.infile
-    else:
-        infile = sys.stdin
-
+    infile= args.infile
     logger.info(f'Reading file: {infile.name}')
     sig = np.fromfile(infile, dtype=np.float32)
 
@@ -36,10 +32,7 @@ def start(args):
     logger.info('Normalizing the result')
     result = (result - result.mean())/result.max()
 
-    if args.outfile:
-        outfile= args.outfile
-    else:
-        outfile = sys.stdout
+    outfile= args.outfile
     logger.info(f'Writing data: {outfile.name}')
     result.astype(np.float32).tofile(outfile)
 
