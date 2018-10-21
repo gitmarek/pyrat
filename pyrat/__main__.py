@@ -1,15 +1,15 @@
-import argparse, importlib, sys 
+import argparse, importlib, sys
 
 import pyrat
-from pyrat import PROGNAME, VERSION, logger
+from pyrat import name, version, logger
 
 
 # This returns a function to be called by a subparser below
 # We assume in the tool's submodule there's a function called 'start(args)'
 # That takes over the execution of the program.
-def tool_(name):
+def tool_(tool_name):
     def f(args):
-        submodule = importlib.import_module('pyrat.' + name)
+        submodule = importlib.import_module('pyrat.' + tool_name)
         getattr(submodule, 'start')(args)
     return f
 
@@ -17,9 +17,9 @@ def tool_(name):
 if __name__ == '__main__':
 
     # create the top-level parser
-    parser = argparse.ArgumentParser(prog=PROGNAME,
+    parser = argparse.ArgumentParser(prog=name,
         description='Raw tools for raw audio.',
-        epilog=PROGNAME+' <command> -h for more details.')
+        epilog= name+' <command> -h for more details.')
     parser.add_argument('--verbose', action='store_true')
     parser.add_argument('--quiet', action='store_true',
         help='takes precedence over \'verbose\'')
@@ -60,7 +60,7 @@ default, b=0.1. The result is saved to outfile.''',
     args = parser.parse_args()
 
     if args.version:
-        print(PROGNAME + '-' + VERSION)
+        print(name + '-' + version)
         sys.exit(0)
 
     if args.verbose:
