@@ -27,8 +27,17 @@ Dependencies
 Installation
 ------------
 
-Just put a symlink to the `./bin/pyrat` startup script in one of your
-bash PATH directories.
+Clone the repository, e.g.:
+`git clone https://github.com/gitmarek/pyrat && cd pyrat`,
+
+then use pip:
+`pip3 install ./`
+
+You should be able to run the application by typing:
+`python3 -m pyrat`.
+
+If you want to use the module without installing it, help
+yourself with the startup script: `./scripts/pyrat`.
 
 
 Usage
