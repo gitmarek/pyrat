@@ -1,0 +1,4 @@
+v0.2 -- New tools: moprh (simple spectral morphing) and env
+	(envelope follower).
+v0.3 -- Introduce data types.  First step towards audio editor in
+	Python prompt.
