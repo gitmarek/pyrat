@@ -50,7 +50,10 @@ default, b=0.1. The result is saved to outfile.''',
     parser_randph.add_argument('infile', type=argparse.FileType('r'))
     parser_randph.add_argument('outfile', type=argparse.FileType('w'))
     parser_randph.add_argument('-b', type=float, default=0.1,
-        help='phases disttibuted uniformly on [0,b)')
+        help='phases disttibuted uniformly on [0,B)')
+    parser_randph.add_argument('-w', type=int, default=5000,
+        help='follow the signal amplitute envelope; W is the  moving avg. window \
+            length (default w=5000); w<=0 means no modulation')
     parser_randph.set_defaults(func=tool_('randph'))
 
     if len(sys.argv) < 2:
