@@ -45,6 +45,24 @@ def start(args):
     logger.info('Max. imaginary residue: ' + str(np.amax(np.abs(np.imag(b)))))
     b = np.real(b)
 
+    w = 5000
+    logger.info('Modulate the amplitute envelope')
+    if w < 1:
+        logger.error('ERROR: Envelope window length must be at least 1')
+        logger.error('Abort')
+        sys.exit(1)
+    if l < w:
+        logger.error('Envelope window length larger than the signal length')
+        logger.error('Abort')
+        sys.exit(1)
+
+    cs = np.cumsum(np.abs(a))
+    env = np.concatenate( ( [cs[w - 1] / w], 
+                ( cs[w:] - cs[:-w] ) / w,
+                [ np.mean(np.abs(a[i:])) for i in range(l-w+1,l) ] ) )
+
+    b = env * b
+
     outfile= args.outfile
     logger.info(f'Writing data: {outfile.name}')
     b.astype(np.float32).tofile(outfile)
