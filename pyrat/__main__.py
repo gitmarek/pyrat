@@ -14,6 +14,7 @@ def tool_(tool_name):
     return f
 
 
+
 if __name__ == '__main__':
 
     # create the top-level parser
@@ -52,6 +53,20 @@ default, b=0.1. The result is saved to outfile.''',
     parser_randph.add_argument('-b', type=float, default=0.1,
         help='phases disttibuted uniformly on [0,b)')
     parser_randph.set_defaults(func=tool_('randph'))
+
+    # create the parser for the "morph" command
+    parser_morph = subparsers.add_parser('morph',
+        description='''Spectral morphing.
+For b=0, there should be no change in the input singnal, wheread b=1 gives
+modfile.  The length of the outfile is: (1-b)*len(infile) + b*len(modfile).
+By default, b=0.5.''',
+        help='Spectral morphing.')
+    parser_morph.add_argument('infile', type=argparse.FileType('r'))
+    parser_morph.add_argument('modfile', type=argparse.FileType('r'), help="modulating signal")
+    parser_morph.add_argument('outfile', type=argparse.FileType('w'))
+    parser_morph.add_argument('-b', type=float, default=0.5,
+        help='morphing coefficient (=0.5)')
+    parser_morph.set_defaults(func=tool_('morph'))
 
     if len(sys.argv) < 2:
         parser.print_usage()
