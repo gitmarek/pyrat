@@ -4,7 +4,7 @@ import numpy as np
 from scipy import signal
 
 from pyrat import logger
-
+from pyrat.amp import normalize
 
 def start(args):
 
@@ -30,7 +30,7 @@ def start(args):
     result = signal.fftconvolve(sig, ker, mode='full')
 
     logger.info('Normalizing the result')
-    result = (result - result.mean())/np.abs(result).max()
+    result = normalize(result)
 
     outfile= args.outfile
     logger.info(f'Writing data: {outfile.name}')
