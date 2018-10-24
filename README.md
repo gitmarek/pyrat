@@ -1,4 +1,4 @@
-pyrat - Raw Audio Tools v0.1.1
+pyrat - Raw Audio Tools v0.2
 ===================================
 
 Raw tools for raw audio.
